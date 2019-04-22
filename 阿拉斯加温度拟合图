@@ -1,0 +1,33 @@
+#调用
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+
+#数据
+x = np.arange(1, 13, 1)
+y1 = np.array([17,19,21,28,33,38,37,37,31,23,19,18])
+y2 = np.array([-62,-59,-56,-46,-32,-18,-9,-13,-25,-46,-52,-58])
+
+#定义函数
+def func(x, a, b, c, d, e, f):
+    return a*x**5+b*x**4+c*x**3+d*x**2+e*x+f
+
+#拟合
+popt1, pcov1 = curve_fit(func, x, y1)
+plt.plot(x, func(x, *popt1), 'r-', label='fit values')
+popt2, pcov2 = curve_fit(func, x, y2)
+plt.plot(x, func(x, *popt2), 'r-', label='fit values')
+
+#绘图
+plot1 = plt.plot(x, y1, 's',label='original values')
+plot1 = plt.plot(x, y2, 's',label='original values')
+plt.xlabel('month')
+plt.ylabel('temperature')
+plt.legend()
+plt.title('Alaska temperature curve fitting')
+plt.show()
+
+#这个拟合合理吗？如果不合理，为什么？
+    #合理，采用了多项式对结果进行拟合，但是由于数据不多不能做到精确拟合。
+#最低温度和最高温度的时间偏移是否与拟合一样精确？
+    #从图像来看，最低温度和最高温度的时间偏移和拟合的曲线是一样精确的
